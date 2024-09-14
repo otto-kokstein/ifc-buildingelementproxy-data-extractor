@@ -17,6 +17,10 @@ This tool requires several external Python modules, which are listed below toget
 | openpyxl    | 3.1.5    | <https://pypi.org/project/openpyxl/3.1.5/>    |
 | pandas    | 2.2.2    | <https://pypi.org/project/pandas/2.2.2/>    |
 
+## Example
+
+An example input IFC file and output XLSX file can be found in the **example** directory.
+
 ## How to extract
 
 ### 1. Run the tool
