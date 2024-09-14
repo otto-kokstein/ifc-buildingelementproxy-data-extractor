@@ -4,7 +4,7 @@
 
 A tool for extracting BuildingElementProxy data from an IFC file into an XLSX file.
 
-This tool uses a webpage interface because it was meant to be used as an online tool with the server hosted on [pythonanywhere](https://www.pythonanywhere.com/).
+This tool uses a webpage interface because it was meant to be used as an online tool with the server hosted on [pythonanywhere](https://www.eu.pythonanywhere.com/).
 
 ## Requirements
 
