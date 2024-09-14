@@ -1,0 +1,65 @@
+<html lang="cs">
+
+<head>
+    <title>IFC Data Extractor</title>
+</head>
+
+<body bgcolor="#b8bdc4">
+    <div align="center" style="position: relative; height: 100%;">
+        <h1 style="font-size: 2.75em">IFC BuildingElementProxy Data Extractor</h1>
+
+        <hr><br>
+
+        <form id="uploadForm" style="font-size: 1.65em;">
+            <p>Choose IFC File:</p>
+            <input type="file" accept=".ifc" name="file" id="fileInput" required /><br><br>
+            <p>The extraction can take a while.</p>
+            <input type="submit" value="Extract" id="fileInputFormInput">
+        </form>
+
+        <form action="/download" id="downloadForm" style="font-size: 1.65em;">
+            <p id="statusInfo"></p>
+            <input type="submit" value="Download" id="downloadInput" disabled>
+        </form>
+
+        <div align="center" style="position: absolute; bottom: 5px; width: 100%;">
+            <p style="font-size: 1.2em;">Made by Otto Kokstein, 2024</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("uploadForm").addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            document.getElementById("fileInput").disabled = true;
+            document.getElementById("fileInputFormInput").disabled = true;
+            document.getElementById("statusInfo").innerText = "Extracting, please wait..."
+
+            const formData = new FormData();
+            const files = document.getElementById("fileInput");
+            formData.append("file", files.files[0]);
+            const requestOptions = {
+                headers: {
+                    "Content-Type": files.files[0].contentType,
+                },
+                mode: "no-cors",
+                method: "POST",
+                files: files.files[0],
+                body: formData,
+            };
+
+            fetch("/extract", requestOptions).then(response => response.json()).then(data => {
+                document.getElementById("downloadForm").action = "/download/" + data.message;
+                document.getElementById("statusInfo").innerText = "The BuildingElementProxy data were successfully extracted into an XLSX file.";
+                document.getElementById("fileInput").disabled = false;
+                document.getElementById("fileInputFormInput").disabled = false;
+                document.getElementById("downloadInput").disabled = false;
+            }).catch(error => {
+                console.log(error);
+                document.getElementById("statusInfo").innerText = "There was a problem during the extraction.";
+            })
+        });
+    </script>
+</body>
+
+</html>
