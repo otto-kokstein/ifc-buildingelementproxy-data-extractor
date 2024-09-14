@@ -36,7 +36,7 @@ def delete_old_files() -> None:
     file_codes_to_delete: List[str] = []
     current_time = time.time()
     for filename in listdir(PATH_TO_INPUT_FILES):
-        if Path(filename).suffix == ".ifc" and Path(filename).stem[-1].isnumeric():
+        if Path(filename).suffix == ".ifc":
             filepath: str = PATH_TO_INPUT_FILES + filename
             file_mtime = getmtime(filepath)
             file_age = current_time - file_mtime
